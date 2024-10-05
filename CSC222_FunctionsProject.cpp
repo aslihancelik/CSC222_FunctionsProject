@@ -9,10 +9,13 @@
 #include <iostream>
 using namespace std;
 
+//Gets the correct input from the user making sure the input consists of positive values
 void getInput(double &, double &, double &);
 
+//Calculates the inflation for current year and last year
 void calculateResult(double, double, double, double &, double &);
 
+//prints the calculated inflation amounts and the trend
 void printResult(double, double);
 
 int main()
