@@ -26,21 +26,25 @@ int main()
     return 0;
 }
 
-void getInput(double &currentPrice, double &priceLastYear, double &priceTwoYearsAgo) {
+//Gets the correct input from the user making sure the input consists of positive values
+void getInput(double& currentPrice, double& priceLastYear, double& priceTwoYearsAgo) {
 
-    cout << "Please enter the current price of an item and its price from one year and two years ago as " << endl;
-    cout << "currentprice pricelasyear pricetwoyearsago e.g. 10 5 3" << endl;
+    cout << "Please enter the current price, price from one year ago, and price from two years ago.\n";
+    cout << "For example: 10 5 3\n";
     cin >> currentPrice >> priceLastYear >> priceTwoYearsAgo;
-    
-    if (currentPrice < 0 || priceLastYear < 0 || priceTwoYearsAgo < 0) {
+
+    if (currentPrice <= 0 || priceLastYear <= 0 || priceTwoYearsAgo <= 0) {
         do {
-            cout << " You can not enter any negative values. Please enter again." << endl;
+            cout << "Prices must be greater than zero. Please enter the values again.\n";
             cin >> currentPrice >> priceLastYear >> priceTwoYearsAgo;
         } while (currentPrice < 0 || priceLastYear < 0 || priceTwoYearsAgo < 0);
     }
-    cout << "You entered " << currentPrice << " " << priceLastYear << " " << priceTwoYearsAgo << endl;
+    cout << "You entered: Current Price = " << currentPrice
+        << ", Last Year Price = " << priceLastYear
+        << ", Two Years Ago Price = " << priceTwoYearsAgo << endl;
 }
 
+//Calculates the inflation for current year and last year
 void calculateResult(double currentPrice, double priceLastYear, double priceTwoYearsAgo, 
                      double &inflation1, double &inflation2) {
 
@@ -48,13 +52,14 @@ void calculateResult(double currentPrice, double priceLastYear, double priceTwoY
     inflation2 = (priceLastYear - priceTwoYearsAgo) / priceTwoYearsAgo;
 }
 
+//prints the calculated inflation amounts and the trend
 void printResult(double inflation1, double inflation2) {
     cout << "The inflation rate for the current year is " << inflation1*100 << "%" << endl;
     cout << "The inflation rate for the last year is " << inflation2*100 << "%" << endl;
-    if (inflation2 > inflation1) {
+    if (inflation1 > inflation2) {
         cout << "Inflation trend is increasing.";
     }
-    else if (inflation1 = inflation2) {
+    else if (inflation1 == inflation2) {
         cout << "Inflation trend is stable.";
     }
     else {
