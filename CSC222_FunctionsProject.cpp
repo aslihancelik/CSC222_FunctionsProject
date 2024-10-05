@@ -1,20 +1,63 @@
 // CSC222_FunctionsProject.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
+// A program that outputs the inflation rates for two successive years and whether the inflation trend is 
+// increasing or decreasing.
+//
+//Programmer: Aslihan Celik
+//
 
 #include <iostream>
+using namespace std;
+
+void getInput(double &, double &, double &);
+
+void calculateResult(double, double, double, double &, double &);
+
+void printResult(double, double);
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    double currentPrice, priceLastYear, priceTwoYearsAgo, inflation1, inflation2;
+    
+    getInput(currentPrice, priceLastYear, priceTwoYearsAgo);
+    calculateResult(currentPrice, priceLastYear, priceTwoYearsAgo, inflation1, inflation2);
+    printResult(inflation1, inflation2);
+     
+    return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+void getInput(double &currentPrice, double &priceLastYear, double &priceTwoYearsAgo) {
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+    cout << "Please enter the current price of an item and its price from one year and two years ago as " << endl;
+    cout << "currentprice pricelasyear pricetwoyearsago e.g. 10 5 3" << endl;
+    cin >> currentPrice >> priceLastYear >> priceTwoYearsAgo;
+    
+    if (currentPrice < 0 || priceLastYear < 0 || priceTwoYearsAgo < 0) {
+        do {
+            cout << " You can not enter any negative values. Please enter again." << endl;
+            cin >> currentPrice >> priceLastYear >> priceTwoYearsAgo;
+        } while (currentPrice < 0 || priceLastYear < 0 || priceTwoYearsAgo < 0);
+    }
+    cout << "You entered " << currentPrice << " " << priceLastYear << " " << priceTwoYearsAgo << endl;
+}
+
+void calculateResult(double currentPrice, double priceLastYear, double priceTwoYearsAgo, 
+                     double &inflation1, double &inflation2) {
+
+    inflation1 = (currentPrice - priceLastYear) / priceLastYear;
+    inflation2 = (priceLastYear - priceTwoYearsAgo) / priceTwoYearsAgo;
+}
+
+void printResult(double inflation1, double inflation2) {
+    cout << "The inflation rate for the current year is " << inflation1*100 << "%" << endl;
+    cout << "The inflation rate for the last year is " << inflation2*100 << "%" << endl;
+    if (inflation2 > inflation1) {
+        cout << "Inflation trend is increasing.";
+    }
+    else if (inflation1 = inflation2) {
+        cout << "Inflation trend is stable.";
+    }
+    else {
+        cout << "Inflation trend is decreasing.";
+    }
+}
